@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.http import Http404
-from django.views.generic import ListView,DetailView
+from django.views.generic import ListView,DetailView,CreateView
 from .models import Notes
+from .forms import NotesForm
 
 # Create your views here.
 
@@ -22,6 +23,12 @@ class PopularNotesListView(ListView):
     context_object_name = "notes"
     template_name = 'notes/notes_list.html'
     queryset = Notes.objects.filter(likes__gte=1)
+
+class NotesCreateView(CreateView):
+    model = Notes
+    # fields = ['title','text']
+    form_class = NotesForm
+    success_url = '/smart/notes'
 
 
 #below function-based views are replaced by class-based view
