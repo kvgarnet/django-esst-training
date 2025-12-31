@@ -9,4 +9,5 @@
 <div class="alert alert-danger my-5">
     {{form.errors.title.as_text}}
 {% endif %}
+<a href="{% url 'notes.list'%}" class="btn btn-secondary">Cancel</a>
 {% endblock %}
