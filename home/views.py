@@ -4,9 +4,13 @@ from datetime import datetime
 from django.views.generic import TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+
 
 class LogoutInterfaceView(LogoutView):
     template_name = 'home/logout.html'
+    next_page = reverse_lazy('login')  # 重定向到登录页面
+
 
 class LoginInterfaceView(LoginView):
     template_name = 'home/login.html'
