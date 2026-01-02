@@ -36,6 +36,7 @@ class NotesCreateView(LoginRequiredMixin, CreateView):
     form_class = NotesForm
     login_url = "/admin"
 
+    #overwrite the form_valid method to associate form object with request's login user info to fix not null constraint of notes model 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
@@ -47,7 +48,7 @@ class NotesListView(LoginRequiredMixin, ListView):
     context_object_name = "notes"
     template_name = "notes/notes_list.html"
     login_url = "/admin"
-
+    #overwrite get_queryset of ListView class to query only notes belong to user , see ccbv.co,uk for get_queryset
     def get_queryset(self):
         return self.request.user.notes.all()
 
